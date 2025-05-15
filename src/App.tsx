@@ -1,9 +1,12 @@
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./routes/home/Homepage";
-import ChatPage from "./routes/home/ChatPage";
+import ChatPage from "./routes/chat/ChatPage";
 import NotFound from "./routes/notfound/NotFound";
 import Navbar from "./components/common/Navbar";
+import Login from "./routes/auth/Login";
+import Signup from "./routes/auth/Signup";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   return (
@@ -13,8 +16,11 @@ export default function App() {
         <Routes>
           <Route index path="/" element={<Homepage />} />
           <Route path="/c/:slug" element={<ChatPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ToastContainer />
       </main>
     </>
   );

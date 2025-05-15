@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Hero() {
   return (
-    <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] w-full flex items-center justify-center flex-col gap-3 text-center">
+    <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] bg-linear-to-r  w-full flex items-center justify-center flex-col gap-3 text-center">
       <h1 className="font-semibold text-3xl md:text-5xl">
         LLM Neural AI <br />
         <p>
@@ -45,7 +45,7 @@ export default function Hero() {
         </NavLink>
         <NavLink
           to={"/about"}
-          className="px-3 border py-2 text-sm md:text-base"
+          className="px-3 py-2 text-sm md:text-base"
           style={{ borderRadius: `10px` }}
         >
           About Us
