@@ -38,7 +38,7 @@ export default function Navbar() {
           ) : (
             <NavLink
               to={"/login"}
-              style={{ borderRadius: `10px` }}
+              style={{ borderRadius: "10px" }}
               className={`border border-gray-300 text-gray-600 px-3 py-1 text-sm md:text-base`}
             >
               Login
