@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [viewPassword, setViewPassword] = useState(false);
@@ -9,6 +10,8 @@ export default function Signup() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -38,7 +41,6 @@ export default function Signup() {
         console.log("Server Response:", data);
 
         if (res.ok) {
-          // alert("Registration successful!");
           localStorage.setItem("UserSession", data.token);
           toast.success("Registration successful!", {
             autoClose: 600,
@@ -46,7 +48,7 @@ export default function Signup() {
           });
 
           setIsSubmitting(false);
-          // window.location.reload();
+          navigate("/c/new");
 
           setFormData({
             name: "",
@@ -54,7 +56,6 @@ export default function Signup() {
             password: "",
           });
         } else {
-          // alert(data.message || "Something went wrong.");
           toast.error("Something went wrong.", {
             autoClose: 600,
             position: "bottom-right",
@@ -63,7 +64,6 @@ export default function Signup() {
         }
       } catch (error) {
         console.error("Error:", error);
-        // alert("Error connecting to server");
         toast.error("Error connecting to server.", {
           autoClose: 600,
           position: "bottom-right",
@@ -81,7 +81,7 @@ export default function Signup() {
     <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] px-3 flex justify-center text-left flex-col gap-2">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-2.5  max-w-md mx-auto w-full"
+        className="flex flex-col gap-2  max-w-md mx-auto w-full"
       >
         <h1 className="text-2xl font-medium">Get Started now</h1>
         <p className="text-sm md:text-base text-gray-600">

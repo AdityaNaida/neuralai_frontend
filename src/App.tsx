@@ -7,6 +7,7 @@ import Navbar from "./components/common/Navbar";
 import Login from "./routes/auth/Login";
 import Signup from "./routes/auth/Signup";
 import { ToastContainer } from "react-toastify";
+import PrivateRoute from "./routes/private/PrivateRoute";
 
 export default function App() {
   return (
@@ -15,7 +16,15 @@ export default function App() {
       <main className="px-3">
         <Routes>
           <Route index path="/" element={<Homepage />} />
-          <Route path="/c/:slug" element={<ChatPage />} />
+
+          <Route
+            path="/c/:slug"
+            element={
+              <PrivateRoute>
+                <ChatPage />
+              </PrivateRoute>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<NotFound />} />
