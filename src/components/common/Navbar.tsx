@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
+  const session = localStorage.getItem("UserSession");
+
   return (
     <header className="sticky top-0 left-0 h-16 md:h-20 flex items-center px-3">
       <nav className="max-w-7xl mx-auto flex items-center justify-between flex-nowrap w-full">
@@ -19,13 +21,29 @@ export default function Navbar() {
         </NavLink>
 
         <div className="flex items-center">
-          <NavLink
-            to={"/login"}
-            style={{ borderRadius: `10px` }}
-            className={`border border-gray-300 text-gray-600 px-3 py-1 text-sm md:text-base`}
-          >
-            Login
-          </NavLink>
+          {session && session.length > 0 ? (
+            <button
+              className="text-red-500"
+              onClick={() => {
+                try {
+                  localStorage.removeItem("UserSession");
+                  window.location.reload();
+                } catch (error) {
+                  console.log(error);
+                }
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <NavLink
+              to={"/login"}
+              style={{ borderRadius: `10px` }}
+              className={`border border-gray-300 text-gray-600 px-3 py-1 text-sm md:text-base`}
+            >
+              Login
+            </NavLink>
+          )}
         </div>
       </nav>
     </header>

@@ -46,7 +46,7 @@ export default function Signup() {
           });
 
           setIsSubmitting(false);
-          console.log(data);
+          window.location.reload();
 
           setFormData({
             name: "",
