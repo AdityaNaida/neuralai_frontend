@@ -21,7 +21,7 @@ export default function Signup() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (formData.password.length > 6) {
+    if (formData.password.length > 6 || formData.password.length === 6) {
       try {
         const res = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/api/user/register`,
@@ -46,7 +46,7 @@ export default function Signup() {
           });
 
           setIsSubmitting(false);
-          window.location.reload();
+          // window.location.reload();
 
           setFormData({
             name: "",
