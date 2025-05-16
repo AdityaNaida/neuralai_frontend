@@ -6,7 +6,7 @@ export default function Hero() {
       <h1 className="font-semibold text-3xl md:text-5xl">
         LLM Neural AI <br />
         <p>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 dark:from-purple-300 dark:to-orange-200">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 ">
             Purpose-Built
           </span>{" "}
           for Coding

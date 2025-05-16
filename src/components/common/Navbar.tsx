@@ -23,7 +23,7 @@ export default function Navbar() {
         <div className="flex items-center">
           {session && session.length > 0 ? (
             <button
-              className="text-red-500"
+              className="text-red-500 cursor-pointer"
               onClick={() => {
                 try {
                   localStorage.removeItem("UserSession");

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [viewPassword, setViewPassword] = useState(false);
@@ -10,8 +9,6 @@ export default function Signup() {
     email: "",
     password: "",
   });
-
-  // const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -49,7 +46,6 @@ export default function Signup() {
 
           setIsSubmitting(false);
           window.location.reload();
-          // navigate("/c/new");
 
           setFormData({
             name: "",
