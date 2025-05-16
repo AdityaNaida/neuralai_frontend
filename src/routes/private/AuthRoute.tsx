@@ -9,7 +9,7 @@ export default function AuthRoute({ children }: PrivateRouteProps) {
   const userSession = localStorage.getItem("UserSession");
 
   if (userSession) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/app" replace />;
   }
   return children;
 }

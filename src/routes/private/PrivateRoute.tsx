@@ -14,7 +14,6 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     return <Navigate to="/login" replace />;
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   // useEffect(() => {
   //   async function fetchSession() {
   //     const session = await getSessionFromLocalStorage();
