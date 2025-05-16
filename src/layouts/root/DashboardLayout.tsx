@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }: DashboardProp) {
       <ChatSidebar />
       <SidebarInset className="flex flex-col">
         <ChatNavbar />
-        <div className="flex-1 overflow-auto p-4 bg-gray-50">{children}</div>
+        <div className="md:flex-1 md:overflow-auto  bg-gray-50">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
