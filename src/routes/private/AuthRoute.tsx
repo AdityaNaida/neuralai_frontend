@@ -5,14 +5,11 @@ type PrivateRouteProps = {
   children: ReactNode;
 };
 
-const PrivateRoute = ({ children }: PrivateRouteProps) => {
+export default function AuthRoute({ children }: PrivateRouteProps) {
   const userSession = localStorage.getItem("UserSession");
 
-  if (!userSession) {
-    return <Navigate to="/login" replace />;
+  if (userSession) {
+    return <Navigate to="/" replace />;
   }
-
   return children;
-};
-
-export default PrivateRoute;
+}

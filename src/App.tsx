@@ -8,6 +8,7 @@ import Login from "./routes/auth/Login";
 import Signup from "./routes/auth/Signup";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./routes/private/PrivateRoute";
+import AuthRoute from "./routes/private/AuthRoute";
 
 export default function App() {
   return (
@@ -25,8 +26,22 @@ export default function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/login"
+            element={
+              <AuthRoute>
+                <Login />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <AuthRoute>
+                <Signup />
+              </AuthRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer />

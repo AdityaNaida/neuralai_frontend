@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [viewPassword, setViewPassword] = useState(false);
@@ -11,7 +11,7 @@ export default function Signup() {
     password: "",
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -48,7 +48,8 @@ export default function Signup() {
           });
 
           setIsSubmitting(false);
-          navigate("/c/new");
+          window.location.reload();
+          // navigate("/c/new");
 
           setFormData({
             name: "",
@@ -142,7 +143,7 @@ export default function Signup() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-5 absolute top-[55%] text-gray-500 right-2"
+              className="size-5 absolute top-[55%] text-gray-500 right-2 cursor-pointer"
               onClick={() => {
                 setViewPassword((prev) => !prev);
               }}
@@ -165,7 +166,7 @@ export default function Signup() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-5 absolute top-[55%] text-gray-500 right-2"
+              className="size-5 absolute top-[55%] text-gray-500 right-2 cursor-pointer"
               onClick={() => {
                 setViewPassword((prev) => !prev);
               }}
@@ -182,7 +183,7 @@ export default function Signup() {
         <button
           style={{ borderRadius: `10px` }}
           disabled={isSubmitting}
-          className="bg-gradient-to-br from-purple-500 to-blue-500 py-2 text-white mt-4"
+          className="bg-gradient-to-br from-purple-500 to-blue-500 py-2 text-white mt-4 cursor-pointer"
         >
           {isSubmitting ? (
             <div className="flex items-center justify-center gap-2">
