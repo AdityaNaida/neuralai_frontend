@@ -33,23 +33,21 @@ export default function ChatSidebar() {
         style={{ borderRadius: `10px` }}
       >
         <SidebarHeader className="flex items-center justify-between flex-row">
-          <NavLink to="/" className="flex items-center gap-2 font-semibold">
-            <SheetTitle className="flex items-center flex-nowrap gap-1">
-              <img
-                src="/logo.webp"
-                alt="logo image"
-                className="h-6 md:h-7 w-6 md:w-7"
-                loading="lazy"
-                decoding="async"
-              />
-              <NavLink
-                to={"/"}
-                className={` md:text-lg font-semibold  group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:hidden`}
-              >
-                Neural AI
-              </NavLink>
-            </SheetTitle>
-          </NavLink>
+          <SheetTitle className="flex items-center flex-nowrap gap-1">
+            <img
+              src="/logo.webp"
+              alt="logo image"
+              className="h-6 md:h-7 w-6 md:w-7"
+              loading="lazy"
+              decoding="async"
+            />
+            <NavLink
+              to={"/"}
+              className={` md:text-lg font-semibold  group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:hidden`}
+            >
+              Neural AI
+            </NavLink>
+          </SheetTitle>
 
           <SidebarTrigger className="cursor-pointer hidden md:block group-data-[state=collapsed]:hidden" />
         </SidebarHeader>

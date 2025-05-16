@@ -47,14 +47,9 @@ export default function Navbar() {
       const session = (await getSessionFromLocalStorage()) as Sessiontype;
 
       if (session && session.user) {
-        console.log("User session:", session);
-        // setUserData(session.user)
-
         const reqBody = {
           id: session.user._id as string,
         };
-
-        // console.log(reqBody);
 
         const res = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/api/user/get`,

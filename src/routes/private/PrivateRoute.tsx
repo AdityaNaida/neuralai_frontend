@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import { useEffect, type ReactNode } from "react";
-import { getSessionFromLocalStorage } from "@/lib/globalMethod";
+import { type ReactNode } from "react";
+// import { getSessionFromLocalStorage } from "@/lib/globalMethod";
 import DashboardLayout from "@/layouts/root/DashboardLayout";
 
 type PrivateRouteProps = {
@@ -15,19 +15,19 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    async function fetchSession() {
-      const session = await getSessionFromLocalStorage();
+  // useEffect(() => {
+  //   async function fetchSession() {
+  //     const session = await getSessionFromLocalStorage();
 
-      if (session) {
-        console.log("User session:", session);
-      } else {
-        console.log("No valid session found.");
-      }
-    }
+  //     if (session) {
+  //       console.log("User session:", session);
+  //     } else {
+  //       console.log("No valid session found.");
+  //     }
+  //   }
 
-    fetchSession();
-  }, []);
+  //   fetchSession();
+  // }, []);
 
   return <DashboardLayout>{children}</DashboardLayout>;
 };
