@@ -37,7 +37,7 @@ export default function Signup() {
         const data = await res.json();
         console.log("Server Response:", data);
 
-        if (res.ok) {
+        if (res.ok && data && data.token) {
           localStorage.setItem("UserSession", data.token);
           toast.success("Registration successful!", {
             autoClose: 600,
@@ -53,8 +53,8 @@ export default function Signup() {
             password: "",
           });
         } else {
-          toast.error("Something went wrong.", {
-            autoClose: 600,
+          toast.error(`${data.message}`, {
+            autoClose: 1000,
             position: "bottom-right",
           });
           setIsSubmitting(false);
@@ -62,7 +62,7 @@ export default function Signup() {
       } catch (error) {
         console.error("Error:", error);
         toast.error("Error connecting to server.", {
-          autoClose: 600,
+          autoClose: 1000,
           position: "bottom-right",
         });
       }

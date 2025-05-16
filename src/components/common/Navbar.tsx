@@ -1,7 +1,84 @@
+//react router
 import { NavLink } from "react-router-dom";
 
+//ui components
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+//alerts
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { getSessionFromLocalStorage } from "@/lib/globalMethod";
+
+//types
+type UserData = {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  lastLogin: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  chats: string[];
+};
+type Sessiontype = {
+  exp: number;
+  expires: Date;
+  iat: number;
+  user: {
+    _id: string;
+    email: string;
+  };
+};
+
 export default function Navbar() {
+  const [userData, setUserData] = useState<UserData | null>(null);
   const session = localStorage.getItem("UserSession");
+
+  useEffect(() => {
+    async function fetchSession() {
+      const session = (await getSessionFromLocalStorage()) as Sessiontype;
+
+      if (session && session.user) {
+        console.log("User session:", session);
+        // setUserData(session.user)
+
+        const reqBody = {
+          id: session.user._id as string,
+        };
+
+        // console.log(reqBody);
+
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/get`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reqBody),
+          }
+        );
+
+        const data = await res.json();
+
+        setUserData(data.user);
+      } else {
+        console.log("No valid session found.");
+      }
+    }
+
+    fetchSession();
+  }, [session]);
+
+  console.log(userData);
 
   return (
     <header className="sticky top-0 left-0 h-16 md:h-20 flex items-center px-3">
@@ -22,19 +99,59 @@ export default function Navbar() {
 
         <div className="flex items-center">
           {session && session.length > 0 ? (
-            <button
-              className="text-red-500 cursor-pointer"
-              onClick={() => {
-                try {
-                  localStorage.removeItem("UserSession");
-                  window.location.reload();
-                } catch (error) {
-                  console.log(error);
-                }
-              }}
-            >
-              Logout
-            </button>
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1.5 md:gap-2 cursor-pointer">
+                  <Avatar className="h-7 w-7 md:h-8 md:w-8">
+                    <AvatarImage src="/placeholder.svg" alt="User" />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                      {userData ? (
+                        <>{userData.name.split("").shift()}</>
+                      ) : (
+                        <p>Loading user data...</p>
+                      )}
+                    </AvatarFallback>
+                  </Avatar>
+                  {userData ? (
+                    <p className="text-sm">
+                      {userData.name.split(" ").shift()}
+                    </p>
+                  ) : (
+                    <p>Loading user data...</p>
+                  )}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="ring-0 border-0 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-md">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>New Chat</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      try {
+                        localStorage.removeItem("UserSession");
+
+                        toast.success(`Logged out`, {
+                          autoClose: 600,
+                          position: "bottom-right",
+                        });
+
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 1000);
+                      } catch (error) {
+                        console.log(error);
+                        toast.error(`Something went wrong.`, {
+                          autoClose: 600,
+                          position: "bottom-right",
+                        });
+                      }
+                    }}
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
           ) : (
             <NavLink
               to={"/login"}
