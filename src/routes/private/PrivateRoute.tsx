@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, type ReactNode } from "react";
 import { getSessionFromLocalStorage } from "@/lib/globalMethod";
+import DashboardLayout from "@/layouts/root/DashboardLayout";
 
 type PrivateRouteProps = {
   children: ReactNode;
@@ -28,7 +29,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     fetchSession();
   }, []);
 
-  return children;
+  return <DashboardLayout>{children}</DashboardLayout>;
 };
 
 export default PrivateRoute;

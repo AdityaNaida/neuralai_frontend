@@ -1,5 +1,5 @@
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Homepage from "./routes/home/Homepage";
 import ChatPage from "./routes/chat/ChatPage";
 import NotFound from "./routes/notfound/NotFound";
@@ -9,11 +9,17 @@ import Signup from "./routes/auth/Signup";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./routes/private/PrivateRoute";
 import AuthRoute from "./routes/private/AuthRoute";
+import ChatApp from "./routes/chat/ChatApp";
 
 export default function App() {
+  const location = useLocation();
+
+  const shouldHideNavbar =
+    location.pathname.startsWith("/c/") || location.pathname === "/app";
+
   return (
     <>
-      <Navbar />
+      {!shouldHideNavbar && <Navbar />}
       <main className="px-3">
         <Routes>
           <Route index path="/" element={<Homepage />} />
@@ -23,6 +29,15 @@ export default function App() {
             element={
               <PrivateRoute>
                 <ChatPage />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/app"
+            element={
+              <PrivateRoute>
+                <ChatApp />
               </PrivateRoute>
             }
           />

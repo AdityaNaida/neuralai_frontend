@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { getSessionFromLocalStorage } from "@/lib/globalMethod";
 
 //types
-type UserData = {
+export type UserData = {
   _id: string;
   name: string;
   email: string;
@@ -28,7 +28,7 @@ type UserData = {
   updatedAt: Date;
   chats: string[];
 };
-type Sessiontype = {
+export type Sessiontype = {
   exp: number;
   expires: Date;
   iat: number;
@@ -78,8 +78,6 @@ export default function Navbar() {
     fetchSession();
   }, [session]);
 
-  console.log(userData);
-
   return (
     <header className="sticky top-0 left-0 h-16 md:h-20 flex items-center px-3">
       <nav className="max-w-7xl mx-auto flex items-center justify-between flex-nowrap w-full">
@@ -101,30 +99,41 @@ export default function Navbar() {
           {session && session.length > 0 ? (
             <>
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1.5 md:gap-2 cursor-pointer">
-                  <Avatar className="h-7 w-7 md:h-8 md:w-8">
-                    <AvatarImage src="/placeholder.svg" alt="User" />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                      {userData ? (
-                        <>{userData.name.split("").shift()}</>
-                      ) : (
-                        <p>Loading user data...</p>
-                      )}
-                    </AvatarFallback>
-                  </Avatar>
-                  {userData ? (
+                {userData ? (
+                  <DropdownMenuTrigger className="flex items-center gap-1.5 md:gap-2 cursor-pointer">
+                    <Avatar className="h-7 w-7 md:h-8 md:w-8">
+                      <AvatarImage src="/placeholder.svg" alt="User" />
+                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                        {userData.name.split("").shift()}
+                      </AvatarFallback>
+                    </Avatar>
+
                     <p className="text-sm">
                       {userData.name.split(" ").shift()}
                     </p>
-                  ) : (
-                    <p>Loading user data...</p>
-                  )}
-                </DropdownMenuTrigger>
+                  </DropdownMenuTrigger>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    className="animate-spin text-gray-500"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12 2.25c-5.384 0-9.75 4.366-9.75 9.75s4.366 9.75 9.75 9.75v-2.437A7.312 7.312 0 1 1 19.313 12h2.437c0-5.384-4.366-9.75-9.75-9.75"
+                    ></path>
+                  </svg>
+                )}
+
                 <DropdownMenuContent className="ring-0 border-0 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-md">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>New Chat</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <NavLink to={"/app"}>New Chat</NavLink>
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => {
                       try {
