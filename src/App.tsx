@@ -10,7 +10,6 @@ import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./routes/private/PrivateRoute";
 import AuthRoute from "./routes/private/AuthRoute";
 import ChatApp from "./routes/chat/ChatApp";
-import OpenRouterTest from "./routes/chat/OpenRouterTest";
 
 export default function App() {
   const location = useLocation();
@@ -58,8 +57,6 @@ export default function App() {
               </AuthRoute>
             }
           />
-
-          <Route path="/test" element={<OpenRouterTest />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
