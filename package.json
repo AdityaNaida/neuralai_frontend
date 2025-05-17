@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@google/genai": "^0.14.1",
+    "@imagekit/react": "^5.0.1",
     "@radix-ui/react-avatar": "^1.1.9",
     "@radix-ui/react-collapsible": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.13",
