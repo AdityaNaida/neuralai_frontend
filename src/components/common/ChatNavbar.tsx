@@ -1,6 +1,4 @@
-import { getSessionFromLocalStorage } from "@/lib/globalMethod";
-import type { Sessiontype, UserData } from "./Navbar";
-import { useEffect, useState } from "react";
+import type { UserData } from "./Navbar";
 import { NavLink } from "react-router-dom";
 
 //ui components
@@ -17,40 +15,13 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 
 import { toast } from "react-toastify";
 
-export default function ChatNavbar() {
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const session = localStorage.getItem("UserSession");
+//types
+type Props = {
+  session: string | null;
+  userData: UserData | null;
+};
 
-  useEffect(() => {
-    async function fetchSession() {
-      const session = (await getSessionFromLocalStorage()) as Sessiontype;
-
-      if (session && session.user) {
-        const reqBody = {
-          id: session.user._id as string,
-        };
-
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/user/get`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(reqBody),
-          }
-        );
-
-        const data = await res.json();
-
-        setUserData(data.user);
-      } else {
-        console.log("No valid session found.");
-      }
-    }
-
-    fetchSession();
-  }, [session]);
+export default function ChatNavbar({ session, userData }: Props) {
   return (
     <nav className="sticky top-0 left-0 h-16 md:h-20 flex items-center justify-between">
       <div className="flex items-center gap-2">

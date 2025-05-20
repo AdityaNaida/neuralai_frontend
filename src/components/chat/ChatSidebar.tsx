@@ -23,8 +23,16 @@ import {
 // } from "@/components/ui/collapsible";
 
 import { NavLink } from "react-router-dom";
+import type { UserData } from "../common/Navbar";
 
-export default function ChatSidebar() {
+//types
+type Props = {
+  userData: UserData;
+};
+
+export default function ChatSidebar({ userData }: Props) {
+  console.log(userData);
+
   return (
     <Sheet>
       <Sidebar
@@ -137,6 +145,8 @@ export default function ChatSidebar() {
                     )}
                   </SidebarMenuItem>
                 ))} */}
+
+                <p className="mt-4 text-xs">Recent Chats</p>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

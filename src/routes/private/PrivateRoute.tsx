@@ -14,20 +14,6 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     return <Navigate to="/login" replace />;
   }
 
-  // useEffect(() => {
-  //   async function fetchSession() {
-  //     const session = await getSessionFromLocalStorage();
-
-  //     if (session) {
-  //       console.log("User session:", session);
-  //     } else {
-  //       console.log("No valid session found.");
-  //     }
-  //   }
-
-  //   fetchSession();
-  // }, []);
-
   return <DashboardLayout>{children}</DashboardLayout>;
 };
 

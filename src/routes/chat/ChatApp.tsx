@@ -1,7 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import type { Sessiontype, UserData } from "@/components/common/Navbar";
+import { getSessionFromLocalStorage } from "@/lib/globalMethod";
 
 export default function ChatApp() {
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const session = localStorage.getItem("UserSession");
+
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
@@ -32,8 +38,39 @@ export default function ChatApp() {
     mutation.mutate(text);
   };
 
+  useEffect(() => {
+    async function fetchSession() {
+      const session = (await getSessionFromLocalStorage()) as Sessiontype;
+
+      if (session && session.user) {
+        const reqBody = {
+          id: session.user._id as string,
+        };
+
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/get`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reqBody),
+          }
+        );
+
+        const data = await res.json();
+
+        setUserData(data.user);
+      } else {
+        console.log("No valid session found.");
+      }
+    }
+
+    fetchSession();
+  }, [session]);
+
   return (
-    <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-120px)]  relative overflow-y-auto scroll-smooth transition-all ease duration-100">
+    <div className="h-[calc(100vh-64px)] flex items-center justify-center flex-col gap-2 md:h-[calc(100vh-120px)]  relative overflow-y-auto scroll-smooth transition-all ease duration-100">
       {/* <div className="texts">
         <div className="logo">
           <img src="/logo.png" alt="" />
@@ -54,6 +91,14 @@ export default function ChatApp() {
           </div>
         </div>
       </div> */}
+
+      {userData && (
+        <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
+          Welcome,{userData.name.split(" ").shift()}
+        </p>
+      )}
+      <p className="text-sm">How can I help you today?</p>
+
       <div
         className="max-w-2xl w-full fixed md:absolute bottom-0 left-1/2 px-3"
         style={{ transform: `translate(-50%, -8%)` }}
