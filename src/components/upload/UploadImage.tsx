@@ -5,12 +5,14 @@ import {
   ImageKitUploadNetworkError,
   upload,
 } from "@imagekit/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
-export default function UploadImage() {
-  // State to keep track of the current upload progress (percentage)
-  const [progress, setProgress] = useState(0);
+//type
+type Props = {
+  setImage: React.Dispatch<React.SetStateAction<string>>;
+};
 
+export default function UploadImage({ setImage }: Props) {
   // Create a ref for the file input element to access its files easily
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -20,7 +22,7 @@ export default function UploadImage() {
   const authenticator = async () => {
     try {
       // Perform the request to the upload authentication endpoint.
-      const response = await fetch("/auth");
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/auth");
       if (!response.ok) {
         // If the server response is not successful, extract the error text for debugging.
         const errorText = await response.text();
@@ -73,7 +75,8 @@ export default function UploadImage() {
         fileName: file.name, // Optionally set a custom file name
         // Progress callback to update upload progress state
         onProgress: (event) => {
-          setProgress((event.loaded / event.total) * 100);
+          // setProgress((event.loaded / event.total) * 100);
+          console.log(event);
         },
         // Abort signal to allow cancellation of the upload if needed.
         abortSignal: abortController.signal,
@@ -96,16 +99,39 @@ export default function UploadImage() {
     }
   };
 
+  const handleOnClick = () => {
+    fileInputRef.current?.click();
+    const fileInput = fileInputRef.current;
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      handleUpload();
+    }
+  };
+
+  console.log(setImage);
+
   return (
     <>
-      <input type="file" ref={fileInputRef} />
+      <input type="file" ref={fileInputRef} hidden multiple={false} />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-5 text-gray-600 cursor-pointer"
+        onClick={handleOnClick}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"
+        />
+      </svg>
       {/* Button to trigger the upload process */}
       <button type="button" onClick={handleUpload}>
         Upload file
       </button>
       <br />
-      {/* Display the current upload progress */}
-      Upload progress: <progress value={progress} max={100}></progress>
     </>
   );
 }

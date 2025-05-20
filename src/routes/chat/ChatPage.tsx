@@ -1,3 +1,4 @@
+import NewPrompt from "@/components/chat/NewPrompt";
 import { Navigate } from "react-router-dom";
 
 export default function ChatPage() {
@@ -7,5 +8,13 @@ export default function ChatPage() {
     return <Navigate to="/login" replace />;
   }
 
-  return <div>ChatPage</div>;
+  // const path = useLocation();
+
+  // const childId = path.split("/").pop()
+
+  return (
+    <div>
+      <NewPrompt />
+    </div>
+  );
 }
