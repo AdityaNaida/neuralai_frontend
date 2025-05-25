@@ -78,6 +78,8 @@ export default function NewPrompt({ userId }: Props) {
     }
   };
 
+  console.log(userId);
+
   return (
     <>
       {image.isLoading && uploadProgress && (
