@@ -24,10 +24,21 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
     }
   };
 
-  const handleUpload = async (file: File) => {
+  const handleUpload = async (
+    file: File,
+    inlineData: { inlineData: { data: string; mimeType: string } }
+  ) => {
     setIsUploading(true);
     setError("");
     setUploadProgress(0);
+
+    // Set isLoading to true immediately when upload process starts
+    setImage((prev: any) => ({
+      ...prev,
+      isLoading: true,
+      error: "",
+      aiData: inlineData, // Store the inline data here
+    }));
 
     try {
       const { signature, expire, token, publicKey } = await authenticator();
@@ -39,33 +50,33 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
         signature,
         expire,
         token,
-        // Optional: Add progress callback if ImageKit supports it
-
         onProgress: (progress) => {
           setUploadProgress(
             Math.round((progress.loaded / progress.total) * 100)
           );
-
-          setImage((prev: any) => ({ ...prev, isLoading: true }));
         },
       });
 
       console.log(uploadResponse);
 
-      // setImage(uploadResponse.url as string);
       setImage((prev: any) => ({
         ...prev,
         isLoading: false,
-        dbData: uploadResponse,
+        dbData: uploadResponse, // This seems to store the ImageKit response
+        aiData: inlineData, // Keep the inline data even after upload success
       }));
       setUploadProgress(100);
     } catch (err) {
       setError("Failed to upload image");
-      setImage((prev: any) => ({ ...prev, error: "Failed to upload image" }));
+      setImage((prev: any) => ({
+        ...prev,
+        error: "Failed to upload image",
+        isLoading: false,
+        aiData: null, // Clear inline data on error if desired
+      }));
       console.error("Upload error:", err);
     } finally {
-      setImage((prev: any) => ({ ...prev, isLoading: false }));
-      setIsUploading(false);
+      // isUploading is set to false here, which is fine.
       // Reset file input to allow re-uploading the same file
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
@@ -81,6 +92,10 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
       const maxSize = 10 * 1024 * 1024; // 10MB
       if (file.size > maxSize) {
         setError("File size must be less than 10MB");
+        setImage((prev: any) => ({
+          ...prev,
+          error: "File size must be less than 10MB",
+        }));
         return;
       }
 
@@ -93,10 +108,44 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
       ];
       if (!allowedTypes.includes(file.type)) {
         setError("Please select a valid image file (JPEG, PNG, GIF, or WebP)");
+        setImage((prev: any) => ({
+          ...prev,
+          error: "Please select a valid image file (JPEG, PNG, GIF, or WebP)",
+        }));
         return;
       }
 
-      handleUpload(file);
+      // --- FileReader logic similar to your image ---
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          // Fixed: Wrap data and mimeType in inlineData object
+          const inlineData = {
+            inlineData: {
+              data: reader.result.split(",")[1], // Base64 content without the "data:image/png;base64," prefix
+              mimeType: file.type,
+            },
+          };
+          // Call handleUpload with both the file and inline data
+          handleUpload(file, inlineData);
+        } else {
+          setError("Failed to read file content.");
+          setImage((prev: any) => ({
+            ...prev,
+            error: "Failed to read file content.",
+            isLoading: false,
+          }));
+        }
+      };
+      reader.onerror = () => {
+        setError("Error reading file.");
+        setImage((prev: any) => ({
+          ...prev,
+          error: "Error reading file.",
+          isLoading: false,
+        }));
+      };
+      reader.readAsDataURL(file); // Read the file as a data URL (base64)
     }
   };
 
@@ -116,9 +165,6 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
         disabled={isUploading}
         className={isUploading ? "uploading" : ""}
       >
-        {/* {isUploading ? (
-          `Uploading... ${uploadProgress}%`
-        ) : ( */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -133,12 +179,7 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
             d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"
           />
         </svg>
-        {/* )} */}
       </button>
-
-      {/* {selectedFileName && isUploading && (
-        <div className="upload-info">Uploading: {selectedFileName}</div>
-      )} */}
 
       {error && <div className="error">{error}</div>}
     </div>

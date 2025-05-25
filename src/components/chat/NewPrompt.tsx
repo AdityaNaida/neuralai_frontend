@@ -6,7 +6,12 @@ import Markdown from "react-markdown";
 import model from "@/lib/gemini";
 import "./NewPrompt.css";
 
-export default function NewPrompt() {
+//type
+type Props = {
+  userId: string;
+};
+
+export default function NewPrompt({ userId }: Props) {
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
   const [userInput, setUserInput] = useState<string>("");
@@ -15,6 +20,21 @@ export default function NewPrompt() {
     isLoading: false,
     error: "",
     dbData: {},
+    aiData: {},
+  });
+
+  const chat = model.startChat({
+    history: [
+      {
+        role: "user",
+        parts: [{ text: "Hello! I have 2 dogs in my house." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Great to meet you. What would you like to know?" }],
+      },
+    ],
+    generationConfig: {},
   });
 
   const endChatRef = useRef<HTMLDivElement | null>(null);
@@ -28,11 +48,22 @@ export default function NewPrompt() {
   const add = async (userInput: string) => {
     setQuestion(userInput);
 
-    const result = await model.generateContent(userInput);
-    const res = await result.response;
-    const answer = res.text();
-    setAnswer(answer);
+    const result = await chat.sendMessageStream(
+      Object.entries(image.aiData).length
+        ? [image.aiData, userInput]
+        : userInput
+    );
+    // const res = await result.response;
+    // const answer = res.text();
+    let accumulatedText = "";
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      console.log(chunkText);
+      accumulatedText += chunkText;
+      setAnswer(accumulatedText);
+    }
     // console.log(text);
+    setImage({ isLoading: false, error: "", dbData: {}, aiData: {} });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,8 +77,6 @@ export default function NewPrompt() {
       console.log(error);
     }
   };
-
-  console.log(userInput);
 
   return (
     <>
@@ -100,7 +129,7 @@ export default function NewPrompt() {
         </div>
       )}
 
-      <div ref={endChatRef} className="" />
+      <div ref={endChatRef} className="mt-10" />
       <form
         // action=""
         onSubmit={handleSubmit}

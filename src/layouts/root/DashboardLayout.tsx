@@ -48,7 +48,7 @@ export default function DashboardLayout({ children }: DashboardProp) {
 
   return (
     <SidebarProvider className="bg-gray-50" defaultOpen={true}>
-      <ChatSidebar />
+      <ChatSidebar userData={userData} />
       <SidebarInset className="flex flex-col">
         <ChatNavbar session={session} userData={userData} />
         <div className="md:flex-1 md:overflow-auto  bg-gray-50">{children}</div>

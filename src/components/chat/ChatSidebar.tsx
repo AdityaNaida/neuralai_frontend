@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sheet, SheetTitle } from "@/components/ui/sheet";
 import {
   Sidebar,
@@ -24,14 +25,42 @@ import {
 
 import { NavLink } from "react-router-dom";
 import type { UserData } from "../common/Navbar";
+import { useQuery } from "@tanstack/react-query";
 
 //types
 type Props = {
-  userData: UserData;
+  userData: UserData | null;
 };
 
 export default function ChatSidebar({ userData }: Props) {
-  console.log(userData);
+  const apiBody = {
+    userId: userData ? userData._id : "",
+  };
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ["users", apiBody.userId], // include userId to refetch on change
+    queryFn: async () => {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/chats`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiBody),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      return res.json();
+    },
+    enabled: !!userData?._id, // only run query if userData._id exists
+  });
+
+  console.log(data);
 
   return (
     <Sheet>
@@ -89,64 +118,38 @@ export default function ChatSidebar({ userData }: Props) {
                   </svg>
                   New Chat
                 </NavLink>
-                {/* {menuItems.map((item) => (
-                  <SidebarMenuItem key={item.label}>
-                    {item.items ? (
-                      <Collapsible
-                        open={openGroups.includes(item.label)}
-                        onOpenChange={() => toggleGroup(item.label)}
-                      >
-                        <CollapsibleTrigger asChild>
-                          <SidebarMenuButton
-                            className="w-full justify-between"
-                            tooltip={item.label}
-                          >
-                            <div className="flex items-center">
-                              <item.icon className="mr-2 h-4 w-4" />
-                              <span>{item.label}</span>
-                            </div>
-                            <ChevronDown
-                              className={cn(
-                                "h-4 w-4 transition-transform duration-200",
-                                openGroups.includes(item.label) && "rotate-180"
-                              )}
-                            />
-                          </SidebarMenuButton>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                          <SidebarMenuSub>
-                            {item.items.map((subItem) => (
-                              <SidebarMenuSubItem key={subItem.href}>
-                                <SidebarMenuSubButton
-                                  asChild
-                                  isActive={pathname === subItem.href}
-                                >
-                                  <Link href={subItem.href}>
-                                    <subItem.icon className="mr-2 h-4 w-4" />
-                                    {subItem.label}
-                                  </Link>
-                                </SidebarMenuSubButton>
-                              </SidebarMenuSubItem>
-                            ))}
-                          </SidebarMenuSub>
-                        </CollapsibleContent>
-                      </Collapsible>
-                    ) : (
-                      <SidebarMenuButton
-                        asChild
-                        isActive={pathname === item.href}
-                        tooltip={item.label}
-                      >
-                        <Link href={item.href!}>
-                          <item.icon className="mr-2 h-4 w-4" />
-                          <span>{item.label}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    )}
-                  </SidebarMenuItem>
-                ))} */}
 
-                <p className="mt-4 text-xs">Recent Chats</p>
+                <p className="my-4 text-xs">Recent Chats</p>
+
+                {isPending ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    className="animate-spin text-gray-500"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12 2.25c-5.384 0-9.75 4.366-9.75 9.75s4.366 9.75 9.75 9.75v-2.437A7.312 7.312 0 1 1 19.313 12h2.437c0-5.384-4.366-9.75-9.75-9.75"
+                    ></path>
+                  </svg>
+                ) : error ? (
+                  "Something went wrong"
+                ) : (
+                  <div className="flex flex-col gap-2 ">
+                    {data.map((e: any) => (
+                      <NavLink
+                        to={`/c/${e._id}`}
+                        key={e._id}
+                        className={`text-sm hover:bg-gray-100 p-3`}
+                        style={{ borderRadius: `10px` }}
+                      >
+                        {e.title}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

@@ -1,4 +1,7 @@
 import NewPrompt from "@/components/chat/NewPrompt";
+import type { Sessiontype, UserData } from "@/components/common/Navbar";
+import { getSessionFromLocalStorage } from "@/lib/globalMethod";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 const conversation = [
@@ -32,11 +35,44 @@ const conversation = [
 ];
 
 export default function ChatPage() {
+  const [userData, setUserData] = useState<UserData | null>(null);
   const userSession = localStorage.getItem("UserSession");
 
   if (!userSession) {
     return <Navigate to="/login" replace />;
   }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    async function fetchSession() {
+      const session = (await getSessionFromLocalStorage()) as Sessiontype;
+
+      if (session && session.user) {
+        const reqBody = {
+          id: session.user._id as string,
+        };
+
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/get`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reqBody),
+          }
+        );
+
+        const data = await res.json();
+
+        setUserData(data.user);
+      } else {
+        console.log("No valid session found.");
+      }
+    }
+
+    fetchSession();
+  }, [userSession]);
 
   // const path = useLocation();
 
@@ -44,7 +80,7 @@ export default function ChatPage() {
 
   return (
     <div className="h-full relative md:px-10">
-      <div className="h-[calc(100vh-64px)] gap-4  flex flex-col md:h-[calc(100vh-120px)] overflow-y-auto scroll-smooth transition-all ease duration-100">
+      <div className="h-[calc(100vh-64px)] gap-4 mx-auto max-w-2xl  flex flex-col md:h-[calc(100vh-120px)] overflow-y-auto scroll-smooth transition-all ease duration-100">
         {conversation.map((e) => (
           <div
             className={`text-sm ${
@@ -57,7 +93,7 @@ export default function ChatPage() {
             {e.message}
           </div>
         ))}
-        <NewPrompt />
+        <NewPrompt userId={userData?._id as string} />
       </div>
     </div>
   );
