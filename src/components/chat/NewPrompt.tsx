@@ -2,22 +2,53 @@
 import { useEffect, useRef, useState } from "react";
 import UploadImage from "../upload/UploadImage";
 import { Image, ImageKitProvider } from "@imagekit/react";
+import Markdown from "react-markdown";
+import model from "@/lib/gemini";
+import "./NewPrompt.css";
 
 export default function NewPrompt() {
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [question, setQuestion] = useState<string>("");
+  const [answer, setAnswer] = useState<string>("");
+  const [userInput, setUserInput] = useState<string>("");
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [image, setImage] = useState<any>({
     isLoading: false,
     error: "",
     dbData: {},
   });
 
-  const endChatRef = useRef<HTMLElement | null>(null);
+  const endChatRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (endChatRef.current) {
       endChatRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, []);
+  }, [question, answer, image.dbData]);
+
+  const add = async (userInput: string) => {
+    setQuestion(userInput);
+
+    const result = await model.generateContent(userInput);
+    const res = await result.response;
+    const answer = res.text();
+    setAnswer(answer);
+    // console.log(text);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (!userInput) return;
+      await add(userInput);
+
+      setUserInput("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(userInput);
+
   return (
     <>
       {image.isLoading && uploadProgress && (
@@ -55,9 +86,24 @@ export default function NewPrompt() {
         </div>
       )}
 
-      <div className="" />
+      {question && (
+        <div
+          className="place-self-end-safe bg-gray-200 text-right px-3 py-3"
+          style={{ borderRadius: `10px` }}
+        >
+          {question}
+        </div>
+      )}
+      {answer && (
+        <div>
+          <Markdown>{answer}</Markdown>
+        </div>
+      )}
+
+      <div ref={endChatRef} className="" />
       <form
-        action=""
+        // action=""
+        onSubmit={handleSubmit}
         className="w-1/2 absolute bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
         style={{ transform: `translate(-50%,0%)`, borderRadius: `10px` }}
       >
@@ -66,6 +112,11 @@ export default function NewPrompt() {
           placeholder="Ask me anything..."
           className="text-sm w-4/5 outline-none"
           required
+          name="text"
+          value={userInput}
+          onChange={(e) => {
+            setUserInput(e.target.value);
+          }}
         />
 
         <div className="flex items-center gap-2">

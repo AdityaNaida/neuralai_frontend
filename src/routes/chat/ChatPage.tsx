@@ -43,7 +43,7 @@ export default function ChatPage() {
   // const childId = path.split("/").pop()
 
   return (
-    <div className="h-full   relative">
+    <div className="h-full relative md:px-10">
       <div className="h-[calc(100vh-64px)] gap-4  flex flex-col md:h-[calc(100vh-120px)] overflow-y-auto scroll-smooth transition-all ease duration-100">
         {conversation.map((e) => (
           <div

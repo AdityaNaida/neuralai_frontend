@@ -40,10 +40,12 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
         expire,
         token,
         // Optional: Add progress callback if ImageKit supports it
+
         onProgress: (progress) => {
           setUploadProgress(
             Math.round((progress.loaded / progress.total) * 100)
           );
+
           setImage((prev: any) => ({ ...prev, isLoading: true }));
         },
       });
