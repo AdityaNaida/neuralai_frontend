@@ -23,7 +23,7 @@ import {
 //   CollapsibleTrigger,
 // } from "@/components/ui/collapsible";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import type { UserData } from "../common/Navbar";
 import { useQuery } from "@tanstack/react-query";
 
@@ -33,6 +33,8 @@ type Props = {
 };
 
 export default function ChatSidebar({ userData }: Props) {
+  const path = useLocation().pathname;
+  const pathname = path.split("/").pop();
   const apiBody = {
     userId: userData ? userData._id : "",
   };
@@ -59,8 +61,6 @@ export default function ChatSidebar({ userData }: Props) {
     },
     enabled: !!userData?._id, // only run query if userData._id exists
   });
-
-  console.log(data);
 
   return (
     <Sheet>
@@ -142,7 +142,9 @@ export default function ChatSidebar({ userData }: Props) {
                       <NavLink
                         to={`/c/${e._id}`}
                         key={e._id}
-                        className={`text-sm hover:bg-gray-100 p-3`}
+                        className={`text-sm hover:bg-gray-100 whitespace-nowrap text-ellipsis overflow-hidden p-3 ${
+                          e._id === pathname ? `bg-gray-100` : ``
+                        }`}
                         style={{ borderRadius: `10px` }}
                       >
                         {e.title}

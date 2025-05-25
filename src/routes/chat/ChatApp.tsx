@@ -3,15 +3,33 @@
 import { useEffect, useState } from "react";
 import type { Sessiontype, UserData } from "@/components/common/Navbar";
 import { getSessionFromLocalStorage } from "@/lib/globalMethod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function ChatApp() {
   const [userInput, setUserInput] = useState<string>("");
   const [userData, setUserData] = useState<UserData | null>(null);
   const session = localStorage.getItem("UserSession");
 
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: (text: string) => {
+      return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/chat/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: text, userId: userData?._id }),
+      }).then((res) => res.json());
+    },
+    onSuccess: (id) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["users", userData?._id] });
+      navigate(`/c/${id}`);
+    },
+  });
 
   useEffect(() => {
     async function fetchSession() {
@@ -47,28 +65,8 @@ export default function ChatApp() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!userInput) return;
     try {
-      const apiBody = {
-        userId: userData?._id,
-        text: userInput,
-      };
-
-      const data = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/chat/create`,
-        {
-          method: "POST",
-          // credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(apiBody),
-        }
-      );
-
-      const res = await data.json();
-
-      console.log(res);
+      mutation.mutate(userInput);
     } catch (error) {
       console.log(error);
     }

@@ -135,7 +135,7 @@ export default function NewPrompt({ userId }: Props) {
       <form
         // action=""
         onSubmit={handleSubmit}
-        className="w-1/2 absolute bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
+        className="w-full md:w-1/2 absolute bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
         style={{ transform: `translate(-50%,0%)`, borderRadius: `10px` }}
       >
         <input
