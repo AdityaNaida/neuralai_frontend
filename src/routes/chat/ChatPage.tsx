@@ -1,73 +1,44 @@
 import NewPrompt from "@/components/chat/NewPrompt";
-import type { Sessiontype, UserData } from "@/components/common/Navbar";
-import { getSessionFromLocalStorage } from "@/lib/globalMethod";
+// import type { Sessiontype, UserData } from "@/components/common/Navbar";
+// import { getSessionFromLocalStorage } from "@/lib/globalMethod";
 import { ImageKitProvider, Image } from "@imagekit/react";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import { Navigate, useLocation } from "react-router-dom";
 
 //type
-type HistoryType = {
+export type HistoryType = {
   role: "user" | "model";
   parts: [{ text: string }];
   img: string | null;
 };
 
 export default function ChatPage() {
-  const [userData, setUserData] = useState<UserData | null>(null);
+  // const [userData, setUserData] = useState<UserData | null>(null);
   const userSession = localStorage.getItem("UserSession");
+  const path = useLocation().pathname;
+  const chatId = path.split("/").pop();
+  const { isPending, error, data } = useQuery({
+    queryKey: ["chats", chatId],
+    queryFn: async () => {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/chat/get/${chatId}`
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      return res.json();
+    },
+
+    enabled: !!chatId,
+  });
 
   if (!userSession) {
     return <Navigate to="/login" replace />;
   }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    async function fetchSession() {
-      const session = (await getSessionFromLocalStorage()) as Sessiontype;
-
-      if (session && session.user) {
-        const reqBody = {
-          id: session.user._id as string,
-        };
-
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/user/get`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(reqBody),
-          }
-        );
-
-        const data = await res.json();
-
-        setUserData(data.user);
-      } else {
-        console.log("No valid session found.");
-      }
-    }
-
-    fetchSession();
-  }, [userSession]);
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const path = useLocation().pathname;
-  const chatId = path.split("/").pop();
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { isPending, error, data } = useQuery({
-    queryKey: ["chats", chatId],
-    queryFn: () =>
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/chat/get/${chatId}`).then(
-        (res) => res.json()
-      ),
-    enabled: !!chatId,
-  });
-  console.log(data);
 
   return (
     <div className="h-full relative md:px-10">
@@ -121,7 +92,7 @@ export default function ChatPage() {
             </div>
           ))
         )}
-        <NewPrompt userId={userData?._id as string} />
+        {data && <NewPrompt data={data} />}
       </div>
     </div>
   );

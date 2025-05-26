@@ -108,9 +108,7 @@ export default function ChatApp() {
         </div>
       </div> */}
 
-      {/* <NewPrompt userId={userData?._id as string} /> */}
       <form
-        // action=""
         onSubmit={handleSubmit}
         className="w-1/2 absolute bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
         style={{ transform: `translate(-50%,0%)`, borderRadius: `10px` }}
