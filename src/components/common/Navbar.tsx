@@ -90,12 +90,12 @@ export default function Navbar() {
           Neural AI
         </NavLink>
 
-        <div className="flex items-center">
+        <div className="flex items-center relative z-50 bg-white">
           {session && session.length > 0 ? (
             <>
               <DropdownMenu>
                 {userData ? (
-                  <DropdownMenuTrigger className="flex items-center gap-1.5 md:gap-2 cursor-pointer">
+                  <DropdownMenuTrigger className="flex items-center gap-1.5 bg-white md:gap-2 cursor-pointer z-50">
                     <Avatar className="h-7 w-7 md:h-8 md:w-8">
                       <AvatarImage src="/placeholder.svg" alt="User" />
                       <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
@@ -122,8 +122,10 @@ export default function Navbar() {
                   </svg>
                 )}
 
-                <DropdownMenuContent className="ring-0 border-0 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-md">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuContent className="ring-0 bg-white relative z-50 hello  border-0 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-md">
+                  <DropdownMenuLabel className="bg-white">
+                    My Account
+                  </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>

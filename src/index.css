@@ -104,3 +104,7 @@ code {
   margin: 10px 0px;
   border-radius: 10px;
 }
+
+ul > li > a {
+  color: rgb(0, 140, 255);
+}

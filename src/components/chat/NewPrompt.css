@@ -2,3 +2,7 @@ ul > li,
 ul > li > p {
   margin: 10px 0px;
 }
+
+.text-popover-foreground {
+  background-color: white !important;
+}
