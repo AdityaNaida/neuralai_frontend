@@ -208,7 +208,7 @@ export default function NewPrompt({ data }: Props) {
       <div ref={endChatRef} className="mt-20 md:mt-10" />
       <form
         onSubmit={handleSubmit}
-        className="w-full md:w-1/2 absolute bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
+        className="w-full md:w-1/2 absolute bottom-4 md:bottom-2 z-20 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
         style={{ transform: `translate(-50%,0%)`, borderRadius: `10px` }}
       >
         <input

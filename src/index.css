@@ -98,3 +98,9 @@
   --sidebar-border: hsl(220 13% 91%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
+
+code {
+  padding: 10px;
+  margin: 10px 0px;
+  border-radius: 10px;
+}

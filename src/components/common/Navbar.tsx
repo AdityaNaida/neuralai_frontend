@@ -74,7 +74,7 @@ export default function Navbar() {
   }, [session]);
 
   return (
-    <header className="sticky top-0 left-0 h-16 md:h-20 flex items-center px-3">
+    <header className="sticky bg-white z-20 top-0 left-0 h-16 md:h-20 flex items-center px-3">
       <nav className="max-w-7xl mx-auto flex items-center justify-between flex-nowrap w-full">
         <NavLink
           to={"/"}

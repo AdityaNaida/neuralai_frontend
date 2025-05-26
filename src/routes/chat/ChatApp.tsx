@@ -74,7 +74,7 @@ export default function ChatApp() {
 
   return (
     <div className="h-full relative md:px-10">
-      <div className="h-[calc(100vh-64px)] gap-4 mx-auto max-w-2xl  flex items-center justify-center flex-col md:h-[calc(100vh-120px)] overflow-y-auto scroll-smooth transition-all ease duration-100">
+      <div className="h-[calc(100vh-100px)] gap-4 mx-auto max-w-2xl  flex items-center justify-center flex-col md:h-[calc(100vh-120px)] overflow-y-auto scroll-smooth transition-all ease duration-100">
         {userData && (
           <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
             Welcome,{userData.name.split(" ").shift()}
@@ -166,7 +166,7 @@ export default function ChatApp() {
 
       <form
         onSubmit={handleSubmit}
-        className="w-full md:w-1/2 absolute bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
+        className="w-full md:w-1/2 absolute bottom-4 md:bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
         style={{ transform: `translate(-50%,0%)`, borderRadius: `10px` }}
       >
         <input
