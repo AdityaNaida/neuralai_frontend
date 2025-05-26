@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Signup() {
@@ -204,6 +205,15 @@ export default function Signup() {
             <>Signup</>
           )}
         </button>
+        <p className="text-sm mt-4">
+          Already have an account?{" "}
+          <NavLink
+            to={"/login"}
+            className={`text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 font-medium underline`}
+          >
+            Login
+          </NavLink>{" "}
+        </p>
       </form>
     </div>
   );
