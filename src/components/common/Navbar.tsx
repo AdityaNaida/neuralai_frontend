@@ -127,7 +127,7 @@ export default function Navbar() {
                     My Account
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  {/* <DropdownMenuItem>Profile</DropdownMenuItem> */}
                   <DropdownMenuItem>
                     <NavLink to={"/app"}>New Chat</NavLink>
                   </DropdownMenuItem>
