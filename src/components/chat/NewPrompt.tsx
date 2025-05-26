@@ -124,6 +124,15 @@ export default function NewPrompt({ data }: Props) {
         answer: accumulatedText, // <--- Use the final accumulated text
         img: image.dbData?.filePath || undefined, // <--- Use corrected image path
       });
+
+      // setQuestion("");
+      // setAnswer("");
+      // setImage({
+      //   isLoading: false,
+      //   error: "",
+      //   dbData: {},
+      //   aiData: {},
+      // });
     } catch (error) {
       console.log(error);
     }

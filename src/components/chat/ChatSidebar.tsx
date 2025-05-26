@@ -119,7 +119,9 @@ export default function ChatSidebar({ userData }: Props) {
                   New Chat
                 </NavLink>
 
-                <p className="my-4 text-xs">Recent Chats</p>
+                <p className="my-4 text-xs group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:hidden">
+                  Recent Chats
+                </p>
 
                 {isPending ? (
                   <svg
@@ -137,12 +139,12 @@ export default function ChatSidebar({ userData }: Props) {
                 ) : error ? (
                   "Something went wrong"
                 ) : (
-                  <div className="flex flex-col gap-2 ">
+                  <div className="flex flex-col ">
                     {data.map((e: any) => (
                       <NavLink
                         to={`/c/${e._id}`}
                         key={e._id}
-                        className={`text-sm hover:bg-gray-100 whitespace-nowrap text-ellipsis overflow-hidden p-3 ${
+                        className={`text-sm hover:bg-gray-100 whitespace-nowrap text-ellipsis overflow-hidden p-3 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:hidden ${
                           e._id === pathname ? `bg-gray-100` : ``
                         }`}
                         style={{ borderRadius: `10px` }}
