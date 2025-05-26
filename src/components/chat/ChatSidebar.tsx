@@ -139,19 +139,21 @@ export default function ChatSidebar({ userData }: Props) {
                 ) : error ? (
                   "Something went wrong"
                 ) : (
-                  <div className="flex flex-col ">
-                    {data.map((e: any) => (
-                      <NavLink
-                        to={`/c/${e._id}`}
-                        key={e._id}
-                        className={`text-sm hover:bg-gray-100 whitespace-nowrap text-ellipsis overflow-hidden p-3 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:hidden ${
-                          e._id === pathname ? `bg-gray-100` : ``
-                        }`}
-                        style={{ borderRadius: `10px` }}
-                      >
-                        {e.title}
-                      </NavLink>
-                    ))}
+                  <div className="flex flex-col max-h-[80vh] overflow-y-auto ">
+                    {data
+                      .map((e: any) => (
+                        <NavLink
+                          to={`/c/${e._id}`}
+                          key={e._id}
+                          className={`text-sm hover:bg-gray-100 whitespace-nowrap min-h-fit text-ellipsis overflow-hidden p-3 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:hidden ${
+                            e._id === pathname ? `bg-gray-100` : ``
+                          }`}
+                          style={{ borderRadius: `10px` }}
+                        >
+                          {e.title}
+                        </NavLink>
+                      ))
+                      .reverse()}
                   </div>
                 )}
               </SidebarMenu>
