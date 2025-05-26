@@ -62,17 +62,15 @@ export default function ChatPage() {
           data?.history.map((e: HistoryType, i: number) => (
             <div key={i}>
               {e.img && (
-                <div className="place-self-end-safe max-w-96">
+                <div className="place-self-end-safe max-w-60 md:max-w-96 mb-3">
                   <ImageKitProvider
                     urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}
                   >
                     <Image
                       src={e.img}
-                      height="300"
-                      width="400"
-                      transformation={[
-                        { height: 300, width: 400, radius: 100 },
-                      ]}
+                      width={600}
+                      height={400}
+                      transformation={[{ radius: 100 }]}
                       loading="lazy"
                       lqip={{ active: true, quality: 20 }}
                     />

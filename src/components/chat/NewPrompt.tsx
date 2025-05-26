@@ -74,20 +74,22 @@ export default function NewPrompt({ data }: Props) {
         }
       ).then((res) => res.json());
     },
-    onSuccess: () => {
+    onSuccess: (value) => {
       // Invalidate and refetch
+      console.log(value);
+
       queryClient
         .invalidateQueries({ queryKey: ["chats", data._id] })
         .then(() => {
           setTimeout(() => {
-            // setQuestion("");
-            // setAnswer("");
-            // setImage({
-            //   isLoading: false,
-            //   error: "",
-            //   dbData: {},
-            //   aiData: {},
-            // });
+            setQuestion("");
+            setAnswer("");
+            setImage({
+              isLoading: false,
+              error: "",
+              dbData: {},
+              aiData: {},
+            });
           }, 500);
         });
     },
@@ -175,7 +177,7 @@ export default function NewPrompt({ data }: Props) {
       )}
 
       {image.dbData?.filePath && (
-        <div className="place-self-end-safe max-w-96">
+        <div className="place-self-end-safe max-w-60 md:max-w-96">
           <ImageKitProvider
             urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}
           >
@@ -191,14 +193,14 @@ export default function NewPrompt({ data }: Props) {
 
       {question && (
         <div
-          className="place-self-end-safe bg-gray-200 text-right px-3 py-3"
+          className="place-self-end-safe bg-gray-200 text-right px-3 py-3 text-sm"
           style={{ borderRadius: `10px` }}
         >
           {question}
         </div>
       )}
       {answer && (
-        <div>
+        <div className="text-sm">
           <Markdown>{answer}</Markdown>
         </div>
       )}
