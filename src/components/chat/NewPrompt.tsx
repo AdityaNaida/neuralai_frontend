@@ -205,9 +205,8 @@ export default function NewPrompt({ data }: Props) {
         </div>
       )}
 
-      <div ref={endChatRef} className="mt-10" />
+      <div ref={endChatRef} className="mt-20 md:mt-10" />
       <form
-        // action=""
         onSubmit={handleSubmit}
         className="w-full md:w-1/2 absolute bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
         style={{ transform: `translate(-50%,0%)`, borderRadius: `10px` }}
