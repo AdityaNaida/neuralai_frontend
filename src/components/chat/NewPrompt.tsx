@@ -22,6 +22,12 @@ type Props = {
   data: ChatDataType;
 };
 
+type MutationPayload = {
+  question?: string;
+  answer: string;
+  img?: string;
+};
+
 export default function NewPrompt({ data }: Props) {
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
@@ -36,14 +42,10 @@ export default function NewPrompt({ data }: Props) {
 
   const chat = model.startChat({
     history: [
-      {
-        role: "user",
-        parts: [{ text: "Hello! I have 2 dogs in my house." }],
-      },
-      {
-        role: "model",
-        parts: [{ text: "Great to meet you. What would you like to know?" }],
-      },
+      ...data.history.map((e) => ({
+        role: e.role,
+        parts: [{ text: e.parts[0].text }],
+      })),
     ],
     generationConfig: {},
   });
@@ -59,7 +61,8 @@ export default function NewPrompt({ data }: Props) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () => {
+    mutationFn: (payload: MutationPayload) => {
+      console.log("Calling PUT API with:", payload);
       return fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/chat/update/${data._id}`,
         {
@@ -67,11 +70,7 @@ export default function NewPrompt({ data }: Props) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            question: question.length ? question : undefined,
-            answer,
-            img: image.dbDate?.filepath || undefined,
-          }),
+          body: JSON.stringify(payload),
         }
       ).then((res) => res.json());
     },
@@ -81,14 +80,14 @@ export default function NewPrompt({ data }: Props) {
         .invalidateQueries({ queryKey: ["chats", data._id] })
         .then(() => {
           setTimeout(() => {
-            setQuestion("");
-            setAnswer("");
-            setImage({
-              isLoading: false,
-              error: "",
-              dbData: {},
-              aiData: {},
-            });
+            // setQuestion("");
+            // setAnswer("");
+            // setImage({
+            //   isLoading: false,
+            //   error: "",
+            //   dbData: {},
+            //   aiData: {},
+            // });
           }, 500);
         });
     },
@@ -96,6 +95,10 @@ export default function NewPrompt({ data }: Props) {
       console.log(error);
     },
   });
+
+  console.log(
+    `${import.meta.env.VITE_BACKEND_URL}/api/chat/update/${data._id}`
+  );
 
   const add = async (userInput: string) => {
     try {
@@ -116,7 +119,11 @@ export default function NewPrompt({ data }: Props) {
         setAnswer(accumulatedText);
       }
 
-      mutation.mutate();
+      mutation.mutate({
+        question: userInput.length ? userInput : undefined,
+        answer: accumulatedText, // <--- Use the final accumulated text
+        img: image.dbData?.filePath || undefined, // <--- Use corrected image path
+      });
     } catch (error) {
       console.log(error);
     }
