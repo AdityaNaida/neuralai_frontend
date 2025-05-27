@@ -10,9 +10,20 @@ import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./routes/private/PrivateRoute";
 import AuthRoute from "./routes/private/AuthRoute";
 import ChatApp from "./routes/chat/ChatApp";
+import { useEffect } from "react";
 
 export default function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/ping`)
+        .then(() => console.log("Keep-alive ping sent"))
+        .catch((err) => console.error("Ping failed:", err));
+    }, 14 * 60 * 1000); // every 14 minutes
+
+    return () => clearInterval(interval);
+  }, []);
 
   const shouldHideNavbar =
     location.pathname.startsWith("/c/") || location.pathname === "/app";

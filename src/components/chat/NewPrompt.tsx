@@ -326,7 +326,6 @@ export default function NewPrompt({ data }: Props) {
 
   const mutation = useMutation({
     mutationFn: (payload: MutationPayload) => {
-      console.log("Calling PUT API with:", payload);
       return fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/chat/update/${data._id}`,
         {
@@ -412,18 +411,18 @@ export default function NewPrompt({ data }: Props) {
   // Thinking animation component
   const ThinkingAnimation = () => (
     <div className="flex items-center gap-2 text-gray-600 py-2">
-      <span className="text-sm">Thinking</span>
+      <span className="text-xs">Thinking</span>
       <div className="flex gap-1">
         <div
-          className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+          className="w-1 h-1 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full animate-bounce"
           style={{ animationDelay: "0ms" }}
         ></div>
         <div
-          className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+          className="w-1 h-1 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full animate-bounce"
           style={{ animationDelay: "150ms" }}
         ></div>
         <div
-          className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+          className="w-1 h-1 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full animate-bounce"
           style={{ animationDelay: "300ms" }}
         ></div>
       </div>
