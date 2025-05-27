@@ -46,7 +46,7 @@ export default function Hero() {
       </div>
 
       <div className="relative w-full mt-4">
-        <div className="h-4/5 w-1/2 bottom-10 left-0 bg-gradient-to-r from-blue-200 to-blue-600 blur-2xl absolute"></div>
+        <div className="h-4/5 w-1/2 bottom-10 left-0 bg-linear-to-r/increasing from-blue-200 to-purple-600 blur-2xl absolute"></div>
         <div className="h-4/5 w-1/2 bottom-10 right-0 bg-linear-to-r/increasing from-yellow-500 to-pink-400 blur-2xl absolute"></div>
         <div
           className="my-10 p-1 bg-white  border border-purple-100 relative mx-auto max-w-fit"
