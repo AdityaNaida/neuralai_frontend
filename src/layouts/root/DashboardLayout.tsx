@@ -19,8 +19,6 @@ export default function DashboardLayout({ children }: DashboardProp) {
     async function fetchSession() {
       const session = (await getSessionFromLocalStorage()) as Sessiontype;
 
-      console.log(session);
-
       if (session && session.user) {
         const reqBody = {
           id: session.user._id as string,

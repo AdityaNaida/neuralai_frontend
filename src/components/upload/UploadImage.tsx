@@ -57,8 +57,6 @@ const UploadImage = ({ setImage, setUploadProgress }: UploadImageProps) => {
         },
       });
 
-      console.log(uploadResponse);
-
       setImage((prev: any) => ({
         ...prev,
         isLoading: false,

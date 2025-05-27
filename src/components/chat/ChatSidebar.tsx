@@ -34,9 +34,6 @@ export default function ChatSidebar({ userData }: Props) {
     userId: userData ? userData._id : "",
   };
 
-  console.log(apiBody);
-  console.log(`${import.meta.env.VITE_BACKEND_URL}/api/user/chats`);
-
   const { isPending, error, data } = useQuery({
     queryKey: ["users", apiBody.userId], // include userId to refetch on change
     queryFn: async () => {
@@ -59,8 +56,6 @@ export default function ChatSidebar({ userData }: Props) {
     },
     enabled: !!userData?._id, // only run query if userData._id exists
   });
-
-  console.log(data);
 
   return (
     <>
@@ -167,12 +162,6 @@ export default function ChatSidebar({ userData }: Props) {
                           <Trash2
                             className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 hover:opacity-100 text-gray-500 hover:text-red-500 cursor-pointer"
                             size={16}
-                            // onClick={async () => {
-                            //   try {
-                            //   } catch (error) {
-                            //     console.log(error);
-                            //   }
-                            // }}
                           />
                         </div>
                       ))}
