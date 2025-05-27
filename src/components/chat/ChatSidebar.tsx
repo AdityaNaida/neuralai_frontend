@@ -12,7 +12,7 @@ import {
 
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import type { UserData } from "../common/Navbar";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
 import "./NewPrompt.css";
 
@@ -33,6 +33,7 @@ export default function ChatSidebar({ userData }: Props) {
   const path = useLocation().pathname;
   const pathname = path.split("/").pop();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const apiBody = {
     userId: userData ? userData._id : "",
@@ -60,6 +61,44 @@ export default function ChatSidebar({ userData }: Props) {
     },
     enabled: !!userData?._id, // only run query if userData._id exists
   });
+
+  const handleDeleteChat = async (chatId: string) => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/chat/delete/${chatId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userData?._id,
+          }),
+        }
+      );
+
+      if (res.ok) {
+        // Invalidate and refetch the chats query
+        await queryClient.invalidateQueries({
+          queryKey: ["users", apiBody.userId],
+        });
+
+        toast.success(`Chat is Deleted`, {
+          autoClose: 2000,
+          position: "bottom-right",
+        });
+        navigate("/app");
+      } else {
+        throw new Error("Failed to delete chat");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(`Chat isn't Deleted`, {
+        autoClose: 2000,
+        position: "bottom-right",
+      });
+    }
+  };
 
   return (
     <Sheet>
@@ -164,36 +203,38 @@ export default function ChatSidebar({ userData }: Props) {
 
                         {/* 3-dot menu */}
                         <Trash2
-                          onClick={async () => {
-                            try {
-                              const res = await fetch(
-                                `${
-                                  import.meta.env.VITE_BACKEND_URL
-                                }/api/chat/delete/${e._id}`,
-                                {
-                                  method: "DELETE",
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                  },
-                                  body: JSON.stringify({
-                                    userId: userData?._id,
-                                  }),
-                                }
-                              );
-                              toast.success(`Chat is Deleted`, {
-                                autoClose: 2000,
-                                position: "bottom-right",
-                              });
-                              navigate("/app");
-                              console.log(res);
-                            } catch (error) {
-                              console.log(error);
-                              toast.error(`Chat isn't Deleted`, {
-                                autoClose: 2000,
-                                position: "bottom-right",
-                              });
-                            }
-                          }}
+                          // onClick={async () => {
+                          //   try {
+                          //     const res = await fetch(
+                          //       `${
+                          //         import.meta.env.VITE_BACKEND_URL
+                          //       }/api/chat/delete/${e._id}`,
+                          //       {
+                          //         method: "DELETE",
+                          //         headers: {
+                          //           "Content-Type": "application/json",
+                          //         },
+                          //         body: JSON.stringify({
+                          //           userId: userData?._id,
+                          //         }),
+                          //       }
+                          //     );
+                          //     toast.success(`Chat is Deleted`, {
+                          //       autoClose: 2000,
+                          //       position: "bottom-right",
+                          //     });
+                          //     navigate("/app");
+                          //     console.log(res);
+                          //   } catch (error) {
+                          //     console.log(error);
+                          //     toast.error(`Chat isn't Deleted`, {
+                          //       autoClose: 2000,
+                          //       position: "bottom-right",
+                          //     });
+                          //   }
+                          // }}
+
+                          onClick={() => handleDeleteChat(e._id)}
                           className="absolute right-1 top-[40%] cursor-pointer hover:text-red-500 opacity-0 delete"
                           strokeWidth={1.5}
                           size={15}
