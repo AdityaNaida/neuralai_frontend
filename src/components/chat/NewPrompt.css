@@ -6,3 +6,7 @@ ul > li > p {
 .text-popover-foreground {
   background-color: white !important;
 }
+
+.navlink:hover .delete {
+  opacity: 1;
+}
