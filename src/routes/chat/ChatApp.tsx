@@ -1,5 +1,3 @@
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Sessiontype, UserData } from "@/components/common/Navbar";
 import { getSessionFromLocalStorage } from "@/lib/globalMethod";
@@ -83,7 +81,7 @@ export default function ChatApp() {
         <p className="text-sm">How can I help you today?</p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 mt-6">
-          <div className="space-y-1 border-2 border-purple-400 p-3 rounded-2xl">
+          <div className="space-y-1 border-2  border-purple-400 p-3 rounded-2xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
