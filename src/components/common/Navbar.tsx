@@ -122,7 +122,7 @@ export default function Navbar() {
                   </svg>
                 )}
 
-                <DropdownMenuContent className="ring-0 bg-white relative z-50 hello  border-0 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-md">
+                <DropdownMenuContent className="ring-0 bg-white relative z-50  border-0 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-md">
                   <DropdownMenuLabel className="bg-white">
                     My Account
                   </DropdownMenuLabel>

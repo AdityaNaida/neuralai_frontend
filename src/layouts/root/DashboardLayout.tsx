@@ -19,6 +19,8 @@ export default function DashboardLayout({ children }: DashboardProp) {
     async function fetchSession() {
       const session = (await getSessionFromLocalStorage()) as Sessiontype;
 
+      console.log(session);
+
       if (session && session.user) {
         const reqBody = {
           id: session.user._id as string,
@@ -48,7 +50,7 @@ export default function DashboardLayout({ children }: DashboardProp) {
 
   return (
     <SidebarProvider className="bg-gray-50" defaultOpen={true}>
-      <ChatSidebar userData={userData} />
+      {userData && userData._id && <ChatSidebar userData={userData} />}
       <SidebarInset className="flex flex-col">
         <ChatNavbar session={session} userData={userData} />
         <div className="md:flex-1 md:overflow-auto  bg-gray-50">{children}</div>
