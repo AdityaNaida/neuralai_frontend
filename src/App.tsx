@@ -32,7 +32,7 @@ export default function App() {
   return (
     <>
       {!shouldHideNavbar && <Navbar />}
-      <main className="px-3">
+      <main>
         <Routes>
           <Route index path="/" element={<Homepage />} />
 
