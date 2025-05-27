@@ -203,39 +203,8 @@ export default function ChatSidebar({ userData }: Props) {
 
                         {/* 3-dot menu */}
                         <Trash2
-                          // onClick={async () => {
-                          //   try {
-                          //     const res = await fetch(
-                          //       `${
-                          //         import.meta.env.VITE_BACKEND_URL
-                          //       }/api/chat/delete/${e._id}`,
-                          //       {
-                          //         method: "DELETE",
-                          //         headers: {
-                          //           "Content-Type": "application/json",
-                          //         },
-                          //         body: JSON.stringify({
-                          //           userId: userData?._id,
-                          //         }),
-                          //       }
-                          //     );
-                          //     toast.success(`Chat is Deleted`, {
-                          //       autoClose: 2000,
-                          //       position: "bottom-right",
-                          //     });
-                          //     navigate("/app");
-                          //     console.log(res);
-                          //   } catch (error) {
-                          //     console.log(error);
-                          //     toast.error(`Chat isn't Deleted`, {
-                          //       autoClose: 2000,
-                          //       position: "bottom-right",
-                          //     });
-                          //   }
-                          // }}
-
                           onClick={() => handleDeleteChat(e._id)}
-                          className="absolute right-1 top-[40%] cursor-pointer hover:text-red-500 opacity-0 delete"
+                          className="absolute right-1 top-[40%] cursor-pointer hover:text-red-500 md:opacity-0 delete"
                           strokeWidth={1.5}
                           size={15}
                         />
