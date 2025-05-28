@@ -76,13 +76,13 @@ export default function Signup() {
     }
   };
   return (
-    <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] px-3 flex justify-center text-left flex-col gap-2">
+    <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] py-20 px-3 flex md:justify-center text-left flex-col gap-2">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-2  max-w-md mx-auto w-full"
+        className="flex flex-col gap-4  max-w-md mx-auto w-full px-3"
       >
-        <h1 className="text-2xl font-medium">Get Started now</h1>
-        <p className="text-sm md:text-base text-gray-600">
+        <h1 className="text-3xl font-semibold">Sign Up</h1>
+        <p className="text-base text-gray-600">
           Enter your credentials to access your account
         </p>
         <div className="flex flex-col gap-1 mt-4">
@@ -90,7 +90,7 @@ export default function Signup() {
             Name <span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-10 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-2 focus:outline-blue-400"
             placeholder="John Doe"
             type="text"
             required
@@ -106,7 +106,7 @@ export default function Signup() {
             Email <span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-10 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-2 focus:outline-blue-400"
             placeholder="you@example.com"
             type="email"
             required
@@ -122,7 +122,7 @@ export default function Signup() {
             Password <span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-10 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-2 focus:outline-blue-400"
             placeholder="min 6 characters"
             type={viewPassword ? "text" : "password"}
             required
@@ -180,7 +180,7 @@ export default function Signup() {
         <button
           style={{ borderRadius: `10px` }}
           disabled={isSubmitting}
-          className="bg-gradient-to-br from-purple-500 to-blue-500 py-2 text-white mt-4 cursor-pointer"
+          className="bg-gradient-to-br from-purple-500 to-blue-500 py-3 text-white mt-4 cursor-pointer"
         >
           {isSubmitting ? (
             <div className="flex items-center justify-center gap-2">

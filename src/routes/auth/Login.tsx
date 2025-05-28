@@ -74,22 +74,22 @@ export default function Login() {
     }
   };
   return (
-    <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] px-3 flex justify-center text-left flex-col gap-2">
+    <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] px-3 py-20 flex md:justify-center text-left flex-col gap-2">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-2  max-w-md mx-auto w-full"
+        className="flex flex-col gap-4 px-3  max-w-md mx-auto w-full"
       >
-        <h1 className="text-2xl font-medium">Login</h1>
-        <p className="text-sm md:text-base text-gray-600">
-          Enter your credentials to access your account
+        <h1 className="text-3xl font-semibold">Sign In</h1>
+        <p className=" md:text-base text-gray-600">
+          Welcome back you've been missed
         </p>
 
         <div className="flex flex-col gap-1 mt-4">
-          <label htmlFor="email">
-            Email <span className="text-red-500">*</span>
+          <label htmlFor="email" className="font-medium">
+            Email ID<span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-10 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-3 focus:outline-blue-400"
             placeholder="you@example.com"
             type="email"
             required
@@ -101,11 +101,11 @@ export default function Login() {
           />
         </div>
         <div className="flex flex-col gap-1 relative">
-          <label htmlFor="password">
+          <label htmlFor="password" className="font-medium">
             Password <span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-10 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-3 focus:outline-blue-400"
             placeholder="min 6 characters"
             type={viewPassword ? "text" : "password"}
             required
@@ -163,7 +163,7 @@ export default function Login() {
         <button
           style={{ borderRadius: `10px` }}
           disabled={isSubmitting}
-          className="bg-gradient-to-br from-purple-500 to-blue-500 py-2 text-white mt-4 cursor-pointer"
+          className="bg-gradient-to-br from-purple-500 to-blue-500 py-3 text-white mt-4 cursor-pointer"
         >
           {isSubmitting ? (
             <div className="flex items-center justify-center gap-2">
@@ -192,7 +192,7 @@ export default function Login() {
           Don&apos;t have an account?{" "}
           <NavLink
             to={"/signup"}
-            className={`text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 font-medium underline`}
+            className={`text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 font-medium`}
           >
             Signup
           </NavLink>{" "}
