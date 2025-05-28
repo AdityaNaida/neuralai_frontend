@@ -7,7 +7,7 @@
 @custom-variant dark (&:is(.dark *));
 
 * {
-  font-family: "Geist Mono", sans-serif;
+  font-family: "Geist", sans-serif;
 }
 
 @theme inline {

@@ -1,4 +1,3 @@
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Homepage from "./routes/home/Homepage";
 import ChatPage from "./routes/chat/ChatPage";
@@ -10,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./routes/private/PrivateRoute";
 import AuthRoute from "./routes/private/AuthRoute";
 import ChatApp from "./routes/chat/ChatApp";
+import AboutUs from "./routes/home/AboutUs";
 
 export default function App() {
   const location = useLocation();
@@ -35,6 +35,7 @@ export default function App() {
       <main>
         <Routes>
           <Route index path="/" element={<Homepage />} />
+          <Route path="/about" element={<AboutUs />} />
 
           <Route
             path="/c/:slug"

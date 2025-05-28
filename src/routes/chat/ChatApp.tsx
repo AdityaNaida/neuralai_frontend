@@ -75,7 +75,7 @@ export default function ChatApp() {
       <div className="h-[calc(100vh-100px)] gap-4 mx-auto max-w-2xl  flex items-center justify-center flex-col md:h-[calc(100vh-120px)] overflow-y-auto scroll-smooth transition-all ease duration-100">
         {userData && (
           <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
-            Welcome,{userData.name.split(" ").shift()}
+            Welcome, {userData.name.split(" ").shift()}
           </p>
         )}
         <p className="text-sm">How can I help you today?</p>
@@ -97,7 +97,7 @@ export default function ChatApp() {
               />
             </svg>
 
-            <p className="text-sm">Analyze consequences</p>
+            <p className="text-sm font-medium">Analyze consequences</p>
             <p className="text-xs text-gray-600">of space exploration</p>
           </div>
           <div className="space-y-1 border-2 border-purple-400 p-3 rounded-2xl">
@@ -116,7 +116,7 @@ export default function ChatApp() {
               />
             </svg>
 
-            <p className="text-sm">Create an app</p>
+            <p className="text-sm font-medium">Create an app</p>
             <p className="text-xs text-gray-600">for tracking tasks</p>
           </div>
           <div className="space-y-1 border-2 border-purple-400 p-3 rounded-2xl hidden md:block">
@@ -135,36 +135,15 @@ export default function ChatApp() {
               />
             </svg>
 
-            <p className="text-sm">Design an interactive</p>
+            <p className="text-sm font-medium">Design an interactive</p>
             <p className="text-xs text-gray-600">kaleidoscope</p>
           </div>
         </div>
       </div>
 
-      {/* <div className="texts">
-        <div className="logo">
-          <img src="/logo.png" alt="" />
-          <h1>LAMA AI</h1>
-        </div>
-        <div className="options">
-          <div className="option">
-            <img src="/chat.png" alt="" />
-            <span>Create a New Chat</span>
-          </div>
-          <div className="option">
-            <img src="/image.png" alt="" />
-            <span>Analyze Images</span>
-          </div>
-          <div className="option">
-            <img src="/code.png" alt="" />
-            <span>Help me with my Code</span>
-          </div>
-        </div>
-      </div> */}
-
       <form
         onSubmit={handleSubmit}
-        className="w-full md:w-1/2 absolute bottom-4 md:bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
+        className="w-full md:max-w-2xl absolute bottom-4 md:bottom-2 bg-gray-200 left-1/2 p-4 flex items-center justify-between gap-2"
         style={{ transform: `translate(-50%,0%)`, borderRadius: `10px` }}
       >
         <input

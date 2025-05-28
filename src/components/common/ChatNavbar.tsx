@@ -24,9 +24,12 @@ type Props = {
 export default function ChatNavbar({ session, userData }: Props) {
   return (
     <nav className="sticky top-0 left-0 h-16 md:h-20 flex items-center justify-between px-3">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 font-medium">
         <SidebarTrigger className="cursor-pointer md:hidden" />
-        Neural 2.0- Pro
+        Neural{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
+          2.0 Pro
+        </span>
       </div>
       <div className="flex items-center">
         {session && session.length > 0 ? (
