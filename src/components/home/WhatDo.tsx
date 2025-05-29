@@ -1,10 +1,7 @@
 export default function WhatDo() {
   return (
-    <div className="py-20">
-      <div
-        className=" p-3 md:p-10 max-w-5xl gap-10  mx-auto  "
-        // style={{ borderRadius: `14px` }}
-      >
+    <div className="py-10 md:py-20">
+      <div className=" p-3 md:p-10 max-w-5xl gap-10  mx-auto  ">
         <div className="space-y-4">
           <p className="font-semibold text-3xl md:text-5xl text-left">
             Your go-to tool for solving complex problem{" "}
@@ -21,7 +18,7 @@ export default function WhatDo() {
 
         <div className="flex items-center flex-wrap md:flex-nowrap mt-6 gap-4">
           <div
-            className="w-full md:w-[30%] h-64 md:h-60 py-14 md:py-10 p-6 space-y-8 flex justify-center flex-col items-center md:space-y-7 border border-purple-100 "
+            className="w-full md:w-[30%] h-auto md:h-60 py-14 md:py-10 p-6 space-y-8 flex justify-center flex-col items-center md:space-y-7 border border-purple-100 "
             style={{ borderRadius: `10px` }}
           >
             <div className="flex items-center gap-2 -rotate-12">
@@ -46,7 +43,7 @@ export default function WhatDo() {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <p className="text-sm px-12 md:px-6 py-2 bg-gradient-to-b from-pink-200 text-white to-purple-600 w-fit rounded-2xl">
+              <p className="text-sm px-12 md:px-6 py-2 shadow-lg shadow-purple-500/50 bg-gradient-to-b from-pink-200 text-white to-purple-600 w-fit rounded-2xl">
                 Ask Anything
               </p>
               <div className="bg-gradient-to-b from-pink-200 text-white to-purple-600 w-fit p-2 rounded-full">
@@ -98,7 +95,7 @@ export default function WhatDo() {
               style={{ padding: `1px` }}
             >
               <div className="h-full w-full bg-white rounded-full p-2">
-                <div className="bg-gradient-to-br from-pink-200 to-purple-600 h-full w-full rounded-full flex items-center justify-center">
+                <div className="bg-gradient-to-br shadow-lg shadow-purple-500/50 from-pink-200 to-purple-600 h-full w-full rounded-full flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width={24}
@@ -123,7 +120,7 @@ export default function WhatDo() {
             </p>
           </div>
           <div
-            className="w-full md:w-[30%] p-6 h-64 flex flex-col gap-2 md:h-60 border border-purple-100"
+            className="w-full md:w-[30%] p-6 h-auto flex flex-col gap-2 md:h-60 border border-purple-100"
             style={{ borderRadius: `10px` }}
           >
             <p className="text-xs font-medium">
@@ -200,7 +197,76 @@ export default function WhatDo() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 "></div>
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          <div
+            className="h-auto md:h-72 py-14 md:py-10 p-6 space-y-4 flex justify-center flex-col border border-purple-100 "
+            style={{ borderRadius: `10px` }}
+          >
+            <div className="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="size-14 md:size-8 text-purple-600 "
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <p className="text-3xl font-semibold">
+                Turn your Text into{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
+                  Code
+                </span>
+              </p>
+            </div>
+
+            <p className="text-left text-lg font-medium">
+              Write your #Prompt in your language
+            </p>
+            <div
+              className="px-3 py-2 bg-purple-50 text-sm"
+              style={{ borderRadius: `10px` }}
+            >
+              React में useState और useEffect हुक का उपयोग क्यों किया जाता है?
+              इन्हें किसी कॉम्पोनेन्ट में कैसे इस्तेमाल करेंगे और TypeScript में
+              इनका टाइप कैसे सेट करेंगे?
+            </div>
+            <button className="ring-1 py-2 ring-purple-500 flex items-center justify-center gap-2 shadow-lg shadow-purple-100 rounded-2xl text-purple-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                className="size-5"
+              >
+                <path
+                  fill="currentColor"
+                  d="M17.5 9a2.5 2.5 0 0 1 0-5a2.5 2.5 0 0 1 0 5m-3.07-.85L2 20.59L3.41 22L15.85 9.57c-.6-.33-1.09-.82-1.42-1.42M13 5l.63-1.37L15 3l-1.37-.63L13 1l-.62 1.37L11 3l1.38.63zm8 0l.63-1.37L23 3l-1.37-.63L21 1l-.62 1.37L19 3l1.38.63zm0 4l-.62 1.37L19 11l1.38.63L21 13l.63-1.37L23 11l-1.37-.63z"
+                ></path>
+              </svg>{" "}
+              Generate
+            </button>
+          </div>
+          <div
+            className=" h-auto md:h-72 py-14 md:py-10 p-6 flex justify-center flex-col items-center  space-y-4 border border-purple-100 "
+            style={{ borderRadius: `10px` }}
+          >
+            <p className="text-sm px-12 md:px-6 py-2 bg-purple-50 w-fit rounded-2xl">
+              Unlock Deeper Insights
+            </p>
+            <p className="text-sm px-12 md:px-6 py-2 bg-gradient-to-b shadow-lg shadow-purple-500/50 from-pink-200 text-white to-purple-600  w-fit rounded-2xl">
+              Go beyond surface-level answers
+            </p>
+            <p className="text-sm px-12 md:px-6 py-2 bg-purple-50 w-fit rounded-2xl">
+              This builds on "surfacing insights before you even know you need
+              them" from the main headline, emphasizing the AI's analytical
+              depth.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

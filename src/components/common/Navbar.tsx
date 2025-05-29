@@ -127,7 +127,6 @@ export default function Navbar() {
                     My Account
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  {/* <DropdownMenuItem>Profile</DropdownMenuItem> */}
                   <DropdownMenuItem>
                     <NavLink to={"/app"}>New Chat</NavLink>
                   </DropdownMenuItem>
@@ -162,7 +161,7 @@ export default function Navbar() {
             <NavLink
               to={"/login"}
               style={{ borderRadius: "10px" }}
-              className={`border border-gray-300 text-gray-600 px-3 py-1 text-sm md:text-base`}
+              className={`border border-purple-400 px-3 py-1 text-sm md:text-base text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500 `}
             >
               Login
             </NavLink>
