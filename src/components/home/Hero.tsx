@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
 
-export default function Hero() {
+type Props = {
+  viewAboutFnc: () => void;
+};
+
+export default function Hero({ viewAboutFnc }: Props) {
   return (
     <div className=" py-20 md:min-h-[calc(100vh-80px)] overflow-x-hidden h-auto  w-full flex items-center justify-center flex-col gap-3 text-center">
       <h1 className="font-semibold text-3xl md:text-5xl">
@@ -43,13 +47,14 @@ export default function Hero() {
             />
           </svg>
         </NavLink>
-        <NavLink
-          to={"/about"}
+        <button
+          // to={"#about"}
+          onClick={viewAboutFnc}
           style={{ borderRadius: `10px` }}
-          className={`border px-3 py-2 border-gray-300 text-sm md:text-base`}
+          className={`border px-3 py-2 border-gray-300 text-sm md:text-base cursor-pointer`}
         >
           About Us
-        </NavLink>
+        </button>
       </div>
 
       <div className="relative w-full mt-4 px-3">

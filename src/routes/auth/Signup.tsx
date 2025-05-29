@@ -86,11 +86,11 @@ export default function Signup() {
           Enter your credentials to access your account
         </p>
         <div className="flex flex-col gap-1 mt-4">
-          <label htmlFor="name">
+          <label htmlFor="name" className="font-medium">
             Name <span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-12 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-3 focus:outline-blue-400"
             placeholder="John Doe"
             type="text"
             required
@@ -102,11 +102,11 @@ export default function Signup() {
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="email">
-            Email <span className="text-red-500">*</span>
+          <label htmlFor="email" className="font-medium">
+            Email ID<span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-12 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-3 focus:outline-blue-400"
             placeholder="you@example.com"
             type="email"
             required
@@ -118,11 +118,11 @@ export default function Signup() {
           />
         </div>
         <div className="flex flex-col gap-1 relative">
-          <label htmlFor="password">
+          <label htmlFor="password" className="font-medium">
             Password <span className="text-red-500">*</span>
           </label>
           <input
-            className="text-sm border border-gray-300 h-12 px-2 focus:outline-blue-400"
+            className="text-sm border border-gray-300 h-12 px-3 focus:outline-blue-400"
             placeholder="min 6 characters"
             type={viewPassword ? "text" : "password"}
             required

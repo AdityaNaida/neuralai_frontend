@@ -3,7 +3,7 @@ export default function WhatDo() {
     <div className="py-20">
       <div
         className=" p-3 md:p-10 max-w-5xl gap-10  mx-auto  "
-        style={{ borderRadius: `14px` }}
+        // style={{ borderRadius: `14px` }}
       >
         <div className="space-y-4">
           <p className="font-semibold text-3xl md:text-5xl text-left">
@@ -200,6 +200,7 @@ export default function WhatDo() {
             </div>
           </div>
         </div>
+        <div className="grid grid-cols-2 "></div>
       </div>
     </div>
   );
