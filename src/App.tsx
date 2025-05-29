@@ -14,18 +14,6 @@ import AboutUs from "./routes/home/AboutUs";
 export default function App() {
   const location = useLocation();
 
-  const keepServerAlive = () => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/ping`)
-      .then((response) => response)
-      .catch((error) => console.log("Keep-alive ping failed:", error));
-  };
-
-  // Ping every 14 minutes (840,000 ms)
-  setInterval(keepServerAlive, 14 * 60 * 1000);
-
-  // Also ping when the page loads
-  keepServerAlive();
-
   const shouldHideNavbar =
     location.pathname.startsWith("/c/") || location.pathname === "/app";
 
