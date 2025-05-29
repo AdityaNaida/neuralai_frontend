@@ -64,7 +64,6 @@ export default function ChatNavbar({ session, userData }: Props) {
               <DropdownMenuContent className="ring-0 border-0 focus-visible:ring-offset-0 focus-visible:ring-0 rounded-md">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>
                   <NavLink to={"/app"}>New Chat</NavLink>
                 </DropdownMenuItem>

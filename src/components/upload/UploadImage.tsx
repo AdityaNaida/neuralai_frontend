@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { upload } from "@imagekit/react";
 
 interface UploadImageProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setImage: any;
   setUploadProgress: React.Dispatch<React.SetStateAction<number>>;
 }
