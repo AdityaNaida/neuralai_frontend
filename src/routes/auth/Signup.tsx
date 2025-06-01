@@ -1,5 +1,8 @@
+//hooks
 import { useState } from "react";
+//react router
 import { NavLink } from "react-router-dom";
+//alerts
 import { toast } from "react-toastify";
 
 export default function Signup() {
