@@ -1,6 +1,5 @@
 import { Navigate } from "react-router-dom";
 import { type ReactNode } from "react";
-// import { getSessionFromLocalStorage } from "@/lib/globalMethod";
 import DashboardLayout from "@/layouts/root/DashboardLayout";
 
 type PrivateRouteProps = {
